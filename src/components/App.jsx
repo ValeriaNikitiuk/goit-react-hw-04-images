@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
-import pixabayApi from '../servicesApi/posts-api';
+import pixabayApi from './servicesApi/posts-api';
 import Loader from './Loader/Loader';
 
 const Status = {
@@ -17,7 +17,6 @@ const Status = {
 };
 
 export default function App() {
-  const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('idle');
@@ -36,7 +35,6 @@ export default function App() {
           setImages(prevState => [...prevState, ...response.hits])
         )
         .catch(error => {
-          setError(error);
           setStatus(Status.REJECTED);
         })
         .finally(() => setStatus(Status.RESOLVED));
